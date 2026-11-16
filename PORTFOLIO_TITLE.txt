@@ -1,0 +1,3 @@
+AI-Powered Customer Purchase Prediction System | Flask MVC & Machine Learning
+
+Built an end-to-end customer purchase prediction web application using Python, Flask, Scikit-learn, and SQLite. Developed a Random Forest classification pipeline, integrated predictions into a Flask MVC-style backend, and created a responsive interface with prediction-history tracking.
