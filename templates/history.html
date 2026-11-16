@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Prediction History | CustomerAI{% endblock %}
+{% block content %}
+<section class="hero compact">
+    <span class="eyebrow">SAVED RECORDS</span>
+    <h1>Prediction <span>history</span></h1>
+    <p>Recent customer predictions saved in your local SQLite database.</p>
+</section>
+<section class="panel table-panel">
+    {% if records %}
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>ID</th><th>Age</th><th>Income</th><th>Visits</th><th>Prediction</th><th>Probability</th><th>Created</th></tr></thead>
+            <tbody>
+            {% for row in records %}
+                <tr>
+                    <td>#{{ row.id }}</td>
+                    <td>{{ row.age }}</td>
+                    <td>₹{{ "{:,}".format(row.annual_income) }}</td>
+                    <td>{{ row.website_visits }}</td>
+                    <td><span class="pill {{ 'yes' if row.prediction == 1 else 'no' }}">{{ "Purchase" if row.prediction == 1 else "No purchase" }}</span></td>
+                    <td>{{ "%.2f"|format(row.probability) }}%</td>
+                    <td>{{ row.created_at }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state"><h2>No predictions yet</h2><p>Make your first prediction to see it listed here.</p><a class="primary-button link-button" href="{{ url_for('home') }}">Create prediction →</a></div>
+    {% endif %}
+</section>
+{% endblock %}

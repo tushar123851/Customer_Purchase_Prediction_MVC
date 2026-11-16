@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Prediction Result | CustomerAI{% endblock %}
+{% block content %}
+<section class="hero compact">
+    <span class="eyebrow">MODEL OUTPUT</span>
+    <h1>Prediction <span>result</span></h1>
+    <p>The Random Forest model has evaluated the customer information.</p>
+</section>
+<section class="result-card">
+    <div class="result-icon">{{ "✓" if result.prediction == 1 else "↗" }}</div>
+    <span class="eyebrow">CUSTOMER PURCHASE OUTLOOK</span>
+    <h2 class="{{ 'positive' if result.prediction == 1 else 'negative' }}">{{ result.label }}</h2>
+    <div class="probability">{{ result.probability }}<small>%</small></div>
+    <p>Estimated probability of purchase</p>
+    <div class="meter"><span style="width: {{ result.probability }}%"></span></div>
+    <div class="result-actions">
+        <a class="primary-button link-button" href="{{ url_for('home') }}">New prediction →</a>
+        <a class="secondary-button" href="{{ url_for('prediction.history') }}">View history</a>
+    </div>
+</section>
+<section class="panel">
+    <h3>Submitted customer information</h3>
+    <div class="details-grid">
+        {% for key, value in inputs.items() %}
+        <div><small>{{ key.replace('_', ' ').title() }}</small><strong>{{ value }}</strong></div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
